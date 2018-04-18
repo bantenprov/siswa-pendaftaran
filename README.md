@@ -11,11 +11,29 @@ composer require bantenprov/siswa-pendaftaran:dev-master
 
 ```php
 'providers' => [
+    Laratrust\LaratrustServiceProvider::class,
     Bantenprov\SiswaPendaftaran\SiswaPendaftaranServiceProvider::class,
+```
+
+```php
+'aliases' => [
+    'Laratrust'   => Laratrust\LaratrustFacade::class,
 ```
 
 ### artisan command
 
 ```bash
 php artisan vendor:publish --tag=siswa-pendaftaran-assets
+```
+
+```bash
+php artisan laratrust:role
+```
+
+```bash
+php artisan laratrust:permission
+```
+
+```
+php artisan bantenprov:siswa-pendaftaran-install
 ```

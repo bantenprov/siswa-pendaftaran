@@ -1,12 +1,18 @@
 {
     "name": "bantenprov/siswa-pendaftaran",
-    "description": "The SiswaPendaftaran package",
+    "description": "Siswa Pendaftaran",
     "authors": [
         {
             "name": "bantenprov",
             "email": "developer.bantenprov@gmail.com"
         }
     ],
+    "license": "MIT",
+    "support": {
+      "source": "https://github.com/bantenprov/siswa-pendaftaran,",
+      "issues": "https://github.com/bantenprov/siswa-pendaftaran/issues",
+      "wiki": "https://github.com/bantenprov/siswa-pendaftaran/wiki"
+    },
     "require": {
         "php": ">=5.6.4",
         "illuminate/support": "5.4.*"
@@ -19,5 +25,5 @@
             "Bantenprov\\SiswaPendaftaran\\": "src"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

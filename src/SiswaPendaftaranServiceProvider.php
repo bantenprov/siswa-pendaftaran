@@ -135,8 +135,8 @@ class SiswaPendaftaranServiceProvider extends ServiceProvider
         $packageAssetsPath = __DIR__.'/resources/assets';
 
         $this->publishes([
-            $packageAssetsPath => public_path('vendor/siswa-pendaftaran'),
-        ], 'public');
+            $packageAssetsPath => resource_path('assets'),
+        ], 'siswa-pendaftaran-assets');
     }
 
     /**

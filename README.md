@@ -7,6 +7,10 @@ siswa-pendaftaran
 composer require bantenprov/siswa-pendaftaran:dev-master
 ```
 
+### module ini membutuhkan 
+
+<a href="https://github.com/bantenprov/siswa-pendaftaran">Data Akademik</a>
+
 ### edit `config/app.php`
 
 ```php
@@ -23,7 +27,7 @@ composer require bantenprov/siswa-pendaftaran:dev-master
 ### artisan command
 
 ```bash
-php artisan vendor:publish --tag=siswa-pendaftaran-assets
+php artisan vendor:publish --tag=siswa-pendaftaran-assets --force
 ```
 
 ```bash

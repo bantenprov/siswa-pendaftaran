@@ -37,3 +37,10 @@ php artisan laratrust:permission
 ```
 php artisan bantenprov:siswa-pendaftaran-install
 ```
+
+### add to `.env`
+
+```
+DEFAULT_USER_ROLE=siswa
+CHECK_NOMOR_UN=true
+```

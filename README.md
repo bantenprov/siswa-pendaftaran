@@ -72,6 +72,15 @@ php artisan bantenprov:siswa-pendaftaran-install
     }
 ```
 
+### jika role `siswa` belum ada silahkan tambahkan role `siswa` pada vue-trust > role
+
+```
+name = siswa
+display name = Siswa
+description = role untuk siswa
+
+```
+
 ### add to `.env`
 
 ```

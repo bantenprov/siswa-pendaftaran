@@ -7,11 +7,29 @@ siswa-pendaftaran
 composer require bantenprov/siswa-pendaftaran:dev-master
 ```
 
-### module ini membutuhkan 
+### module ini membutuhkan `data-akademik`
 
-<a href="https://github.com/bantenprov/siswa-pendaftaran">Data Akademik</a>
+install module data-akademik
 
-### edit `config/app.php`
+```bash
+composer require bantenprov/data-akademik:dev-master
+```
+
+### edit `config/app.php` ( `data-akademik` )
+
+```php
+'providers' => [
+
+    /*
+     * Package Service Providers...
+     */
+    Laravel\Tinker\TinkerServiceProvider::class,
+    //....
+    Bantenprov\DataAkademik\DataAkademikServiceProvider::class,
+```
+
+
+### edit `config/app.php` ( `siswa-pendaftaran` )
 
 ```php
 'providers' => [

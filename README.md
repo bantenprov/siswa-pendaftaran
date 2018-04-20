@@ -42,6 +42,36 @@ php artisan laratrust:permission
 php artisan bantenprov:siswa-pendaftaran-install
 ```
 
+### edit model `app/User.php`
+```php
+//App/User.php
+/**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'photo_url',
+
+        /* --------- */
+        'redirect',
+        /* --------- */
+    ];
+```
+
+```php
+//App/User.php
+/**
+     * Get the redirect attribute.
+     *
+     * @return string
+     */
+    public function getRedirectAttribute()
+    {
+        return 'siswa.pendaftaran-wizard';
+    }
+```
+
 ### add to `.env`
 
 ```

@@ -80,7 +80,7 @@ export default {
     async login () {
       // Submit the form.
       const { data } = await this.form.post('/api/login')
-      
+
       // Save the token.
       this.$store.dispatch('saveToken', {
         token: data.token,
@@ -93,7 +93,7 @@ export default {
       }
 
       // Redirect dashboard.
-      if(data != null) {        
+      if(data != null) {
         this.$router.push({ name: data.redirect })
       }
     }

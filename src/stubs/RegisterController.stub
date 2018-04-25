@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\DataAkademik;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -46,14 +47,16 @@ class RegisterController extends Controller
 
         if($data['email'] != ""){
             return Validator::make($data, [
-                'name' => 'required|min:6|numeric|unique:users,name',
+                'name' => 'required|digits_between:5,20|unique:users,name',
+                'nomor_kk'  => 'required|digits_between:5,20',
                 'email' => 'email|max:255|unique:users',
                 'password' => 'required|min:6|confirmed',
             ]);
         }else{
             return Validator::make($data, [
-                'name' => 'required|min:6|numeric|unique:users,name',
-                'password' => 'required|min:6|confirmed',
+                'name'      => 'required|digits_between:5,20|unique:users,name',
+                'nomor_kk'  => 'required|digits_between:5,20',
+                'password'  => 'required|min:6|confirmed',
             ]);
         }
 
@@ -67,8 +70,10 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+
         if(env('CHECK_NOMOR_UN')){
-            $check_nomor_un = \App\DataAkademik::where('nomor_un',request()->name);
+
+            $check_nomor_un = \App\DataAkademik::where('nomor_un', request()->name);
 
             if($check_nomor_un->count() <= 0){
                 return response()->json(['nomor_un'=>'Nomor UN : '.request()->name.' tidak ditemukan']);
@@ -99,6 +104,9 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
             ]);
+
+            DataAkademik::where('nomor_un', $user->name)
+                ->update(['nomor_kk' => $data['nomor_kk']]);
 
             return $user->attachRole(env('DEFAULT_USER_ROLE'));
     }

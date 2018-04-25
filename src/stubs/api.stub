@@ -18,17 +18,18 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/user', function (Request $request) {
         /* default redirect */
-        $redirect = 'dashboard';
+        $redirect = 'siswa.pendaftaran-wizard';
 
         /* nilai */
         $akademik = '-';
         $prestasi = '-';
         $zona     = '-';
         $sktm     = '-';
+        $nilai_akademik    = [];
         /* Count from table siswas if nomor_un > 1 or exist */
 
             $nomor_un = $request->user()->name;
-            $siswa = Bantenprov\Siswa\Models\Bantenprov\Siswa\Siswa::where('nomor_un',$nomor_un);
+            $siswa = App\Siswa::where('nomor_un',$nomor_un);
 
 
         /*  Example  */
@@ -37,31 +38,35 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         /* Check if nomor_un exist */
         if($request->user()->hasRole(env('DEFAULT_USER_ROLE'))){
+
             $redirect = 'siswa.pendaftaran-wizard';
             $who = 'siswa';
             if($siswa->count() > 0){
-                $nilai = Bantenprov\Nilai\Models\Bantenprov\Nilai\Nilai::where('siswa_id',$siswa->first()->id);
+                $nilai = App\Nilai::where('nomor_un', $siswa->first()->nomor_un)->with(['siswa', 'user', 'nilai_akademik'])->first();
+
                 if($nilai->count() > 0){
-                    $akademik = $nilai->first()->akademik;
-                    $prestasi = $nilai->first()->prestasi;
-                    $zona     = $nilai->first()->zona;
-                    $sktm     = $nilai->first()->sktm;
+                    $nilai_akademik      = $nilai->nilai_akademik;
+                    $akademik            = $nilai->akademik;
+                    $prestasi            = $nilai->prestasi;
+                    $zona                = $nilai->zona;
+                    $sktm                = $nilai->sktm;
                 }
             }
 
         }else{
-            $redirect = 'dashboard';
+            $redirect = 'siswa.pendaftaran-wizard';
             $who = 'non-siswa';
         }
 
+        $response['nilai']      = $nilai_akademik;
+        $response['user']       = $request->user();
+        $response['who']        = $who;
+        $response['akademik']   = $akademik;
+        $response['prestasi']   = $prestasi;
+        $response['zona']       = $zona;
+        $response['sktm']       = $sktm;
+        $response['redirect']   = $redirect;
 
-        $response['user'] = $request->user();
-        $response['who'] = $who;
-        $response['akademik'] = $akademik;
-        $response['prestasi'] = $prestasi;
-        $response['zona']     = $zona;
-        $response['sktm']     = $sktm;
-        $response['redirect'] = $redirect;
         return $response;
     });
 

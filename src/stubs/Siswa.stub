@@ -1,20 +1,37 @@
 <?php
-
 namespace App;
+
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Siswa
+ * @package App
+ */
 class Siswa extends Model
 {
     use SoftDeletes;
-
+    /**
+     * @var bool
+     */
     public $timestamps = true;
 
+    /**
+     * @var string
+     */
     protected $table = 'siswas';
+
+    /**
+     * @var array
+     */
     protected $dates = [
         'deleted_at'
     ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'nomor_un',
         'nik',
@@ -32,10 +49,60 @@ class Siswa extends Model
         'nisn',
         'tahun_lulus',
         'sekolah_id',
-        'user_id'  
-        
+        'user_id'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function province()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\Province','province_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\City','city_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function district()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\District','district_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function village()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\Village','village_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sekolah()
+    {
+        return $this->belongsTo('Bantenprov\PendaftaranWizard\Models\Bantenprov\PendaftaranWizard\Sekolah','sekolah_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function prodi_sekolah()
+    {
+        return $this->belongsTo('Bantenprov\PendaftaranWizard\Models\Bantenprov\PendaftaranWizard\ProdiSekolah','prodi_sekolah_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\User','user_id');

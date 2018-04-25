@@ -12,7 +12,7 @@
         </div>
         <table class="table mb-0">
           <tbody>
-            <tr>              
+            <tr>
               <th scope="row" v-if="user.who == 'siswa'">Nomor UN</th>
               <th scope="row" v-if="user.who == 'non-siswa'">Username</th>
               <td>{{ user.user.name }}</td>
@@ -23,28 +23,47 @@
             </tr>
           </tbody>
         </table>
-        
+
         <table class="table table-bordered mb-0 mt-5" v-if="user.who == 'siswa'">
           <thead class="thead-dark">
             <tr>
-              <th scope="row">Jenis</th>              
+              <th scope="row">B. Indonesia</th>
+              <th scope="row">B. Inggris</th>
+              <th scope="row">Matematika</th>
+              <th scope="row">IPA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ user.nilai.bahasa_indonesia }}</td>
+              <td>{{ user.nilai.bahasa_inggris }}</td>
+              <td>{{ user.nilai.matematika }}</td>
+              <td>{{ user.nilai.ipa }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered mb-0 mt-5" v-if="user.who == 'siswa'">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="row">Jenis</th>
               <th scope="row">Nilai Rata-Rata</th>
             </tr>
           </thead>
-          <tbody>           
-            <tr>              
+          <tbody>
+            <tr>
               <td>Akademik</td>
               <td>{{ user.akademik }}</td>
             </tr>
-            <tr>              
+            <tr>
               <td>Prestasi</td>
               <td>{{ user.prestasi }}</td>
             </tr>
-            <tr>              
+            <tr>
               <td>SKTM</td>
               <td>{{ user.sktm }}</td>
             </tr>
-            <tr>              
+            <tr>
               <td>Zona</td>
               <td>{{ user.zona }}</td>
             </tr>
@@ -61,7 +80,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: mapGetters({
-    user: 'authUser'    
+    user: 'authUser'
   }),
 
   mounted(){

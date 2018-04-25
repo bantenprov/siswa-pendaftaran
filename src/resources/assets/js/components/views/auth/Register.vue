@@ -17,6 +17,18 @@
         </div>
       </div><!-- /.form-group -->
 
+      <!-- Nomor KK -->
+      <div class="form-group">
+        <label for="inputNomorKK" class="sr-only">Nomor KK</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
+          </div>
+          <input v-model="form.nomor_kk" type="text" name="nomor_kk" class="form-control" :class="{ 'is-invalid': form.errors.has('nomor_kk') }" id="inputNomorKK" placeholder="Nomor KK" autofocus>
+          <has-error :form="form" field="nomor_kk"/>
+        </div>
+      </div><!-- /.form-group -->
+
       <!-- Email -->
       <div class="form-group">
         <label for="inputEmail" class="sr-only">Email</label>
@@ -117,6 +129,7 @@ export default {
       await this.$store.dispatch('fetchUser', { user: data })
 
       // Redirect home.
+      console.log(data);
       this.$router.push({ name: data.redirect })
     }
   }

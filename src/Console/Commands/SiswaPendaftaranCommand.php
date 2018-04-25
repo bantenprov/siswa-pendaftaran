@@ -67,6 +67,11 @@ class SiswaPendaftaranCommand extends Command
                 'stub' => 'Siswa.stub',
                 'file_put_location' => app_path().'/Siswa.php'
             ],
+
+            'Akademik' => [
+                'stub' => 'Akademik.stub',
+                'file_put_location' => app_path().'/Akademik.php'
+            ],
         ];
     }
 
@@ -104,6 +109,10 @@ class SiswaPendaftaranCommand extends Command
         $this->putFileContent($this->files->Siswa['file_put_location'], $this->getStubFileContent($this->files->Siswa['stub']));
 
         $this->info('change file content Siswa.php success');
+
+        $this->putFileContent($this->files->Akademik['file_put_location'], $this->getStubFileContent($this->files->Akademik['stub']));
+
+        $this->info('change file content Akademik.php success');
     }
 
     public function getStubFileContent($file_name)

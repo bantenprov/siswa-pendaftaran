@@ -59,4 +59,36 @@ class DataAkademik extends Model
         return $this->belongsTo('App\User','user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function siswa()
+    {
+        return $this->belongsTo('App\Siswa','nomor_un','nomor_un');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function nilai_akademik()
+    {
+        return $this->belongsTo('App\Akademik','nomor_un','nomor_un');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function nilai()
+    {
+        return $this->belongsTo('App\Nilai','nomor_un','nomor_un');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function kegiatan()
+    {
+        return $this->belongsTo('Bantenprov\PendaftaranWizard\Models\Bantenprov\PendaftaranWizard\Kegiatan','kegiatan_id');
+    }
+
 }

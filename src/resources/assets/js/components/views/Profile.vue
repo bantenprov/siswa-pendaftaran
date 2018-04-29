@@ -7,11 +7,13 @@
         <router-link class="btn btn-sm btn-primary ml-2" :to="{ name: 'settings.user-profile' }"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i> Edit</router-link>
       </div>
       <div class="card-body">
-        <div class="p-3 p-md-4 text-center mb-3">
-          <img :src="user.user.photo_url" width="128" height="128" :alt="user.name">
-        </div>
         <table class="table mb-0">
           <tbody>
+            <tr>
+              <th scope="row" v-if="user.who == 'siswa'">Nama</th>
+              <th scope="row" v-if="user.who == 'non-siswa'">Nama</th>
+              <td>{{ user.nilai.nama_siswa }}</td>
+            </tr>
             <tr>
               <th scope="row" v-if="user.who == 'siswa'">Nomor UN</th>
               <th scope="row" v-if="user.who == 'non-siswa'">Username</th>

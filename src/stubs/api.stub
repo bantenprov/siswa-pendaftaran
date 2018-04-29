@@ -21,15 +21,15 @@ Route::group(['middleware' => 'auth:api'], function () {
         $redirect = 'siswa.pendaftaran-wizard';
 
         /* nilai */
-        $akademik = '-';
-        $prestasi = '-';
-        $zona     = '-';
-        $sktm     = '-';
-        $nilai_akademik    = [];
+        $akademik           = '-';
+        $prestasi           = '-';
+        $zona               = '-';
+        $sktm               = '-';
+        $nilai_akademik     = [];
         /* Count from table siswas if nomor_un > 1 or exist */
 
-            $nomor_un = $request->user()->name;
-            $siswa = App\Siswa::where('nomor_un',$nomor_un);
+            $nomor_un   = $request->user()->name;
+            $siswa      = App\Siswa::where('nomor_un',$nomor_un);
 
 
         /*  Example  */
@@ -39,23 +39,30 @@ Route::group(['middleware' => 'auth:api'], function () {
         /* Check if nomor_un exist */
         if($request->user()->hasRole(env('DEFAULT_USER_ROLE'))){
 
-            $redirect = 'siswa.pendaftaran-wizard';
-            $who = 'siswa';
-            if($siswa->count() > 0){
-                $nilai = App\Nilai::where('nomor_un', $siswa->first()->nomor_un)->with(['siswa', 'user', 'nilai_akademik'])->first();
+            $redirect   = 'siswa.pendaftaran-wizard';
+            $who        = 'siswa';
 
-                if($nilai->count() > 0){
-                    $nilai_akademik      = $nilai->nilai_akademik;
-                    $akademik            = $nilai->akademik;
-                    $prestasi            = $nilai->prestasi;
-                    $zona                = $nilai->zona;
-                    $sktm                = $nilai->sktm;
+            if($siswa->count() > 0){
+                // $nilai = App\Nilai::where('nomor_un', $siswa->first()->nomor_un)->with(['siswa', 'user', 'nilai_akademik'])->first();
+
+                $nilai = App\DataAkademik::where('nomor_un', $siswa->first()->nomor_un)->with(['siswa', 'user', 'nilai_akademik'])->first();
+                // dd($nilai->nilai->akademik);
+
+                if(!empty($nilai)){
+                    if($nilai->count() > 0){
+                        $nilai_akademik      = $nilai;
+                        $akademik            = $nilai->nilai->akademik;
+                        $prestasi            = $nilai->nilai->prestasi;
+                        $zona                = $nilai->nilai->zona;
+                        $sktm                = $nilai->nilai->sktm;
+                    }
                 }
+
             }
 
         }else{
-            $redirect = 'siswa.pendaftaran-wizard';
-            $who = 'non-siswa';
+            $redirect   = 'siswa.pendaftaran-wizard';
+            $who        = 'non-siswa';
         }
 
         $response['nilai']      = $nilai_akademik;

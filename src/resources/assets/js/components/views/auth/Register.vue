@@ -106,7 +106,7 @@ export default {
       if(data.nomor_un){
         swal({
           type: 'error',
-          title: 'Kesalhan pendaftaran.',
+          title: 'Kesalahan pendaftaran.',
           text: data.nomor_un,
           reverseButtons: true,
           confirmButtonText: 'Ok',

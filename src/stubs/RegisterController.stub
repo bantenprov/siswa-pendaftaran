@@ -45,20 +45,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
 
-        if($data['email'] != ""){
+
             return Validator::make($data, [
                 'name' => 'required|digits_between:5,20|unique:users,name',
                 'nomor_kk'  => 'required|digits_between:5,20',
-                'email' => 'email|max:255|unique:users',
+                'tgl_lahir' => 'string|max:6',
                 'password' => 'required|min:6|confirmed',
             ]);
-        }else{
-            return Validator::make($data, [
-                'name'      => 'required|digits_between:5,20|unique:users,name',
-                'nomor_kk'  => 'required|digits_between:5,20',
-                'password'  => 'required|min:6|confirmed',
-            ]);
-        }
+
 
     }
 
@@ -73,11 +67,33 @@ class RegisterController extends Controller
 
         if(env('CHECK_NOMOR_UN')){
 
-            $check_nomor_un = \App\DataAkademik::where('nomor_un', request()->name);
+            $check_nomor_un     = \App\DataAkademik::where('nomor_un', request()->name);
+            $check_nomor_kk     = substr($request->nomor_kk, 0, 2);
+            $kode_provinsi      = 36;
+
+            $tgl = substr($check_nomor_un->first()->tanggal_lahir, 8, 2);
+            $bln = substr($check_nomor_un->first()->tanggal_lahir, 5, 2);
+            $thn = substr($check_nomor_un->first()->tanggal_lahir, 2, 2);
+
+            $tgl_lahir = $tgl.$bln.$thn;
+            $tgl_lahir_from_input = trim(str_replace('-','',$request->tgl_lahir));
+
+            if($tgl_lahir_from_input != $tgl_lahir){
+                return response()->json(['nomor_un'=>'Mohon maaf tanggal lahir anda tidak sesuai dengan data di database kami.']);
+            }
 
             if($check_nomor_un->count() <= 0){
                 return response()->json(['nomor_un'=>'Nomor UN : '.request()->name.' tidak ditemukan']);
             }
+
+            if($check_nomor_kk != $kode_provinsi){
+                return response()->json(['nomor_un'=>'Pendaftaran online khusus untuk calon siswa dengan kartu keluarga yang berdomisili di provinsi banten.']);
+            }
+
+            if($check_nomor_kk != $kode_provinsi){
+                return response()->json(['nomor_un'=>'Pendaftaran online khusus untuk calon siswa dengan kartu keluarga yang berdomisili di provinsi banten.']);
+            }
+
         }
 
         $this->validator($request->all())->validate();
@@ -101,7 +117,7 @@ class RegisterController extends Controller
 
             $user = User::create([
                 'name' => $data['name'],
-                'email' => $data['email'],
+                'tgl_lahir' => $data['tgl_lahir'],
                 'password' => bcrypt($data['password']),
             ]);
 

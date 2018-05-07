@@ -42,6 +42,7 @@ class DataAkademik extends Model
         'bahasa_inggris',
         'matematika',
         'ipa',
+        'tanggal_lahir'
     ];
 
     /**

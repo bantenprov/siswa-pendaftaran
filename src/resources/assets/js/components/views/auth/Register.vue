@@ -29,15 +29,15 @@
         </div>
       </div><!-- /.form-group -->
 
-      <!-- Email -->
+      <!-- Tanggal lahir -->
       <div class="form-group">
-        <label for="inputEmail" class="sr-only">Email</label>
+        <label for="inputTglLahir" class="sr-only">Tanggal Lahir</label>
         <div class="input-group">
           <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+            <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
           </div>
-          <input v-model="form.email" type="email" name="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" id="inputEmail" placeholder="Email ( Optional )">
-          <has-error :form="form" field="email"/>
+          <input v-model="form.tgl_lahir" type="tgl_lahir" name="tgl_lahir" class="form-control" :class="{ 'is-invalid': form.errors.has('tgl_lahir') }" id="inputTglLahir" placeholder="Tanggal Lahir : contoh ( 010295 )">
+          <has-error :form="form" field="tgl_lahir"/>
         </div>
       </div><!-- /.form-group -->
 
@@ -91,7 +91,7 @@ export default {
   data: () => ({
     form: new Form({
       name: '',
-      email: '',
+      tgl_lahir: '',
       password: '',
       password_confirmation: ''
     })
@@ -106,7 +106,7 @@ export default {
       if(data.nomor_un){
         swal({
           type: 'error',
-          title: 'Oops...',
+          title: 'Kesalhan pendaftaran.',
           text: data.nomor_un,
           reverseButtons: true,
           confirmButtonText: 'Ok',

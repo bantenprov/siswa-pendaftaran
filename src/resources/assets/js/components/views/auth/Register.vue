@@ -36,7 +36,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
           </div>
-          <input v-model="form.tgl_lahir" type="tgl_lahir" name="tgl_lahir" class="form-control" :class="{ 'is-invalid': form.errors.has('tgl_lahir') }" id="inputTglLahir" placeholder="Tanggal Lahir : contoh ( 010295 )">
+          <input v-model="form.tgl_lahir" type="tgl_lahir" name="tgl_lahir" class="form-control" :class="{ 'is-invalid': form.errors.has('tgl_lahir') }" id="inputTglLahir" placeholder="Tanggal Lahir : contoh ( 010295 ) tgl-bln-thn">
           <has-error :form="form" field="tgl_lahir"/>
         </div>
       </div><!-- /.form-group -->

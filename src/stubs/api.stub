@@ -46,10 +46,10 @@ Route::group(['middleware' => 'auth:api'], function () {
                 // $nilai = App\Nilai::where('nomor_un', $siswa->first()->nomor_un)->with(['siswa', 'user', 'nilai_akademik'])->first();
 
                 $nilai = App\DataAkademik::where('nomor_un', $siswa->first()->nomor_un)->with(['siswa', 'user', 'nilai_akademik'])->first();
-                // dd($nilai->nilai->akademik);
+                //dd($nilai->nilai);
 
-                if(!empty($nilai)){
-                    if($nilai->count() > 0){
+                if(!empty($nilai->nilai)){
+                    if($nilai->nilai->count() > 0){
                         $nilai_akademik      = $nilai;
                         $akademik            = $nilai->nilai->akademik;
                         $prestasi            = $nilai->nilai->prestasi;
